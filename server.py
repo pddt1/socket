@@ -1,4 +1,9 @@
 import socket, threading
+connections = []
+def get_ip_address():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    return s.getsockname()[0]
 class ClientThread(threading.Thread):
     def __init__(self,clientAddress,clientsocket):
         threading.Thread.__init__(self)
@@ -16,13 +21,14 @@ class ClientThread(threading.Thread):
             print ("from client", msg)
             self.csocket.send(bytes(msg,'UTF-8'))
         print ("Client at ", clientAddress , " disconnected...")
-LOCALHOST = "127.0.0.1"
+LOCALHOST = get_ip_address()
 PORT = 8080
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server.bind((LOCALHOST, PORT))
 print("Server started")
 print("Waiting for client request..")
+print('Server running at ' + LOCALHOST + ':' + str(PORT))
 while True:
     server.listen(1)
     clientsock, clientAddress = server.accept()
