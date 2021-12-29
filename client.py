@@ -1,6 +1,6 @@
 import socket
-SERVER = "127.0.0.1"
-PORT = 8080
+SERVER = input('Input address: ')
+PORT = int(input('Input port: '))
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((SERVER, PORT))
 client.sendall(bytes("This is from Client",'UTF-8'))
