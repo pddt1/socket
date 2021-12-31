@@ -1,5 +1,5 @@
 import socket
-SERVER = str(input('Input address: '))
+SERVER = input('Input address: ')
 PORT = int(input('Input port: '))
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((SERVER, PORT))
